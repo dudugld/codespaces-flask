@@ -35,21 +35,26 @@ def details(pk, id):
 def create():
     try:
         if request.method == "POST":
-            
-            funcionario_novo = Funcionario(
-                _cpf = request.form["cpf"],
-                _pnome = request.form["pnome"],
-                _unome = request.form["unome"],
-                _data_nasc = request.form["data_nasc"],
-                _salario = request.form["salario"],
-            )
-            
-            resultado = funcionario_dao.create(funcionario_novo)
-            
-            if resultado:
-                return redirect(url_for('index'))
-            else:
-                return "Erro ao atualizar", 500
+            try:
+                funcionario_novo = Funcionario(
+                    _cpf = request.form["cpf"],
+                    _pnome = request.form["pnome"],
+                    _unome = request.form["unome"],
+                    _data_nasc = request.form["data_nasc"],
+                    _salario = request.form["salario"],
+                    _endereco = request.form["endereco"],
+                    _sexo = request.form["sexo"],
+                    
+                )
+                
+                resultado = funcionario_dao.create(funcionario_novo)
+                
+                if resultado:
+                    return redirect(url_for('index'))
+                else:
+                    return "Erro ao atualizar", 500
+            except Exception as e:  
+                return f"Erro: {str(e)}", 500
     except:
         pass
     
